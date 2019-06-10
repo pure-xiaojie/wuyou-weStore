@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理系统</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport"> 
+	
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="../css/demo.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../js/plugins/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../js/plugins/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../js/plugins/vendor/linearicons/style.css">
+    <link rel="stylesheet" href="../js/plugins/vendor/chartist/css/chartist-custom.css">
+	
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+	
+	<!-- 分页组件开始 -->
+	<script src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+	<!-- 分页组件结束 -->
+	
+	<script type="text/javascript" src="../js/base_pagination.js"></script>	
+	<script type="text/javascript" src="../js/shopservice/goodsService.js"></script>
+	<script type="text/javascript" src="../js/shopservice/orderService.js"></script>
+	<script type="text/javascript" src="../js/shopservice/itemCatService.js"></script>
+	<script type="text/javascript" src="../js/shopservice/uploadService.js"></script>
+	<script type="text/javascript" src="../js/shopservice/typeTemplateService.js"></script>
+	<script type="text/javascript" src="../js/shopcontroller/baseController.js"></script>
+	<script type="text/javascript" src="../js/shopcontroller/goodsController.js"></script>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini" ng-app="pinyougou" ng-controller="goodsController" ng-init="findAll()">
+
+   <!-- 内容区域 -->
+
+
+            <!-- 内容头部 -->
+            <section class="content-header">
+                <h1>
+                    	控制面板
+                    <small>我的首页</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="all-admin-index.html"><i class="fa fa-dashboard"></i> 我的首页</a></li>
+                </ol>
+            </section>
+            <!-- 内容头部 /-->
+
+            <!-- 正文区域 -->
+            <section class="content">
+
+
+                <!-- 统计数值 -->
+                <div class="row">
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h3>5</h3>
+
+                                <p>用户总数</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            <a href="all-order-manage-list.html" class="small-box-footer">详细 <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <h3>{{sum}}<sup style="font-size: 20px"></sup></h3>
+
+                                <p>商品总数</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="all-ad-statistics-list.html" class="small-box-footer">详细 <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-yellow">
+                            <div class="inner">
+                                <h3>{{size}}</h3>
+
+                                <p>订单总数</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="all-member-manage-list.html" class="small-box-footer">详细 <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <h3>65</h3>
+
+                                <p>浏览量</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="all-ad-statistics-list.html" class="small-box-footer">详细 <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                </div>
+                <!-- /.row -->
+                
+                <div class="row">
+                    <div class="col-md-9">
+                        <div id="headline-chart" class="ct-chart"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="weekly-summary text-right">
+                            <span class="number">￥ {{size}}</span> <span class="percentage">
+                            <i class="fa fa-caret-up text-success"></i> 12%</span>
+                            <span class="info-label">总共销售量</span>
+                        </div>
+                        <div class="weekly-summary text-right">
+                            <span class="number">￥ {{paySum}}</span> 
+                            <span class="percentage">
+                            	<i class="fa fa-caret-up text-success"></i> 23%
+                            </span>
+                            <span class="info-label">当前收益</span>
+                        </div>
+                        <div class="weekly-summary text-right">
+                            <span class="number">￥ {{paySum}}</span> <span class="percentage">
+                            <i class="fa fa-caret-down text-danger"></i> 8%</span>
+                            <span class="info-label">总收益</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- END OVERVIEW -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- RECENT PURCHASES -->
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">销售量排行榜</h3>
+                                <div class="right">
+                                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                </div>
+                            </div>
+                            <div class="panel-body no-padding">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>商品ID</th>
+                                        <th>商品名</th>
+                                        <th>单价</th>
+                                        <th>销售量</th>
+                                        <th>库存情况</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="entity in numList" >
+                      					<td><a>{{entity.id}}</a></td>
+                                        <td>{{entity.goodsName}}</td>
+                                        <td>￥ {{entity.price}}</td>
+                                        <td>{{num[entity.id]}}</td>
+                                        <td><span class="label label-success">库存充裕</span></td>
+                                    
+                                    </tr>
+                   
+
+                                    </tbody>
+                                </table>
+                                <!--数据列表/-->                        
+							  <tm-pagination conf="conf"></tm-pagination>
+                                
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> 实时更新</span></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END RECENT PURCHASES -->
+                    </div>
+                    <div class="col-md-6">
+                        <!-- MULTI CHARTS -->
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">收益曲线图</h3>
+                                <div class="right">
+                                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                    <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div id="visits-trends-chart" class="ct-chart"></div>
+                            </div>
+                        </div>
+                        <!-- END MULTI CHARTS -->
+                    </div>
+                </div>
+            </section>
+            <!-- 正文区域 /-->
+
+        <!-- 内容区域 /-->
+<script src="../js/plugins/vendor/jquery/jquery.min.js"></script>
+<script src="../js/plugins/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/plugins/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../js/plugins/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="../js/plugins/vendor/chartist/js/chartist.min.js"></script>
+<script src="../js/plugins/chartist/js/klorofil-common.js"></script>
+<script>
+    $(function() {
+        var data, options;
+
+        // headline charts
+        data = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            series: [
+                [120, 865, 1238, 1504, 1786, 2398, 2541],
+            ]
+        };
+
+        options = {
+            height: 300,
+            showArea: true,
+            showLine: false,
+            showPoint: false,
+            fullWidth: true,
+            axisX: {
+                showGrid: false
+            },
+            lineSmooth: false,
+        };
+
+        new Chartist.Line('#headline-chart', data, options);
+
+
+        // visits trend charts
+        data = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            series: [{
+                name: 'series-real',
+                data: [3253, 6785, 7758, 10222, 18222, 23869,278696],
+            }, {
+                name: 'series-projection',
+                data: [3253, 6785, 7758, 10222, 18222, 23869,278696],
+            }]
+        };
+
+        options = {
+            fullWidth: true,
+            lineSmooth: false,
+            height: "270px",
+            low: 0,
+            high: 'auto',
+            series: {
+                'series-projection': {
+                    showArea: true,
+                    showPoint: false,
+                    showLine: false
+                },
+            },
+            axisX: {
+                showGrid: false,
+
+            },
+            axisY: {
+                showGrid: false,
+                onlyInteger: true,
+                offset: 0,
+            },
+            chartPadding: {
+                left: 20,
+                right: 20
+            }
+        };
+
+        new Chartist.Line('#visits-trends-chart', data, options);
+
+
+        // visits chart
+        data = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            series: [
+                [6384, 6342, 5437, 2764, 3958, 5068, 7654]
+            ]
+        };
+
+        options = {
+            height: 300,
+            axisX: {
+                showGrid: false
+            },
+        };
+
+        new Chartist.Bar('#visits-chart', data, options);
+
+
+        // real-time pie chart
+        var sysLoad = $('#system-load').easyPieChart({
+            size: 130,
+            barColor: function(percent) {
+                return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
+            },
+            trackColor: 'rgba(245, 245, 245, 0.8)',
+            scaleColor: false,
+            lineWidth: 5,
+            lineCap: "square",
+            animate: 800
+        });
+
+        var updateInterval = 3000; // in milliseconds
+
+        setInterval(function() {
+            var randomVal;
+            randomVal = getRandomInt(0, 100);
+
+            sysLoad.data('easyPieChart').update(randomVal);
+            sysLoad.find('.percent').text(randomVal);
+        }, updateInterval);
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+    });
+</script>
+</body>
+
+</html>

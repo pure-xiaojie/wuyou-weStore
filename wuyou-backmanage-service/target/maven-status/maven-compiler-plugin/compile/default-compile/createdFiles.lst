@@ -1,0 +1,12 @@
+com\wuyou\backmanage\service\impl\GoodsServiceImpl.class
+com\wuyou\backmanage\service\impl\SpecificationOptionServiceImpl.class
+com\wuyou\backmanage\service\impl\GoodsDescServiceImpl.class
+com\wuyou\backmanage\service\impl\BrandServiceImpl.class
+com\wuyou\backmanage\service\impl\ItemServiceImpl.class
+com\wuyou\backmanage\service\impl\SpecificationServiceImpl.class
+com\wuyou\backmanage\service\impl\ItemCatServiceImpl.class
+com\wuyou\backmanage\service\impl\SellerServiceImpl.class
+com\wuyou\backmanage\service\impl\TypeTemplateServiceImpl.class
+com\wuyou\page\service\impl\ItemPageServiceImpl.class
+com\wuyou\content\service\impl\ContentServiceImpl.class
+com\wuyou\content\service\impl\ContentCategoryServiceImpl.class
